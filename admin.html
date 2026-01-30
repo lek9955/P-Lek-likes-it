@@ -307,7 +307,34 @@
                             <td>27/01/2026</td>
                         </tr>
                     </tbody>
-                </table>
+            </div>
+
+            <!-- Members Table - เห็นได้เฉพาะ Admin เท่านั้น -->
+            <div class="admin-table" style="margin-top: var(--space-8);">
+                <div class="admin-table-header">
+                    <h3 class="m-0">👥 รายชื่อสมาชิก</h3>
+                    <span class="badge badge-green" id="memberCount">0 คน</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ชื่อ-นามสกุล</th>
+                                <th>อีเมล</th>
+                                <th>เบอร์โทร</th>
+                                <th>ระดับสมาชิก</th>
+                                <th>วันที่สมัคร</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody">
+                            <!-- Members loaded by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="noMembers" class="text-center py-8 text-gray" style="display: none;">
+                    ยังไม่มีสมาชิกในระบบ
+                </div>
             </div>
 
             <p class="text-center text-gray text-sm mt-8">
@@ -358,12 +385,79 @@
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminPanel').classList.add('active');
             document.getElementById('adminName').textContent = sessionStorage.getItem('adminName') || ADMIN_USER;
+
+            // Load members when admin panel shows
+            loadMembers();
         }
 
         function logout() {
             sessionStorage.removeItem('adminLoggedIn');
             sessionStorage.removeItem('adminName');
             window.location.reload();
+        }
+
+        // Load Members from LocalStorage
+        function loadMembers() {
+            const members = JSON.parse(localStorage.getItem('nvidia_members') || '[]');
+            const tbody = document.getElementById('membersTableBody');
+            const noMembers = document.getElementById('noMembers');
+            const memberCount = document.getElementById('memberCount');
+
+            if (!tbody) return;
+
+            memberCount.textContent = members.length + ' คน';
+
+            if (members.length === 0) {
+                tbody.innerHTML = '';
+                noMembers.style.display = 'block';
+                return;
+            }
+
+            noMembers.style.display = 'none';
+
+            tbody.innerHTML = members.map(member => `
+                <tr>
+                    <td><strong>${member.fullname}</strong></td>
+                    <td>${member.email}</td>
+                    <td>${member.phone}</td>
+                    <td>
+                        <span class="status-badge ${getLevelClass(member.level)}">
+                            ${getLevelIcon(member.level)} ${member.level}
+                        </span>
+                    </td>
+                    <td>${member.date}</td>
+                    <td>
+                        <button class="btn btn-sm btn-ghost" onclick="deleteMember(${member.id})" style="color: var(--color-error);">
+                            🗑️ ลบ
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getLevelClass(level) {
+            switch (level) {
+                case 'Gold': return 'status-completed';
+                case 'Silver': return 'status-pending';
+                default: return 'status-cancelled';
+            }
+        }
+
+        function getLevelIcon(level) {
+            switch (level) {
+                case 'Gold': return '🥇';
+                case 'Silver': return '🥈';
+                default: return '🥉';
+            }
+        }
+
+        function deleteMember(id) {
+            if (!confirm('ต้องการลบสมาชิกนี้หรือไม่?')) return;
+
+            let members = JSON.parse(localStorage.getItem('nvidia_members') || '[]');
+            members = members.filter(m => m.id !== id);
+            localStorage.setItem('nvidia_members', JSON.stringify(members));
+            loadMembers();
         }
     </script>
 </body>

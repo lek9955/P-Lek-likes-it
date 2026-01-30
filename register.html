@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+<!-- 
+============================================
+หมายเหตุ: สร้างเพื่อการศึกษาเท่านั้น
+Note: Created for educational purposes only
+============================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="สมัครสมาชิก - NVIDIA Store">
+    <title>สมัครสมาชิก - NVIDIA Store</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        .register-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            background: radial-gradient(ellipse at center, rgba(118, 185, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--color-black-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .register-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-6);
+            background: var(--gradient-nvidia);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .membership-levels {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+
+        .level-option {
+            position: relative;
+            padding: var(--space-4);
+            background: var(--color-black-lighter);
+            border: 2px solid transparent;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .level-option:hover {
+            border-color: var(--color-gray-500);
+        }
+
+        .level-option.selected {
+            border-color: var(--color-nvidia-green);
+            background: rgba(118, 185, 0, 0.1);
+        }
+
+        .level-option input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .level-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .level-name {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+
+        .level-price {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-400);
+        }
+
+        .level-bronze {
+            --level-color: #CD7F32;
+        }
+
+        .level-silver {
+            --level-color: #C0C0C0;
+        }
+
+        .level-gold {
+            --level-color: #FFD700;
+        }
+
+        .level-option.selected .level-name {
+            color: var(--color-nvidia-green);
+        }
+
+        .success-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .success-modal.active {
+            display: flex;
+        }
+
+        .success-content {
+            background: var(--color-black-light);
+            padding: var(--space-10);
+            border-radius: var(--radius-2xl);
+            text-align: center;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <section class="register-section">
+        <div class="register-card">
+            <div class="register-header">
+                <div class="register-icon">👤</div>
+                <h2>สมัครสมาชิก</h2>
+                <p class="text-gray">เข้าร่วมครอบครัว NVIDIA Store</p>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label">ชื่อ-นามสกุล *</label>
+                    <input type="text" id="fullname" class="form-input" placeholder="กรอกชื่อ-นามสกุล" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">อีเมล *</label>
+                    <input type="email" id="email" class="form-input" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">เบอร์โทรศัพท์ *</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="08X-XXX-XXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ระดับสมาชิก *</label>
+                    <div class="membership-levels">
+                        <label class="level-option level-bronze selected">
+                            <input type="radio" name="level" value="Bronze" checked>
+                            <div class="level-icon">🥉</div>
+                            <div class="level-name">Bronze</div>
+                            <div class="level-price">ฟรี</div>
+                        </label>
+                        <label class="level-option level-silver">
+                            <input type="radio" name="level" value="Silver">
+                            <div class="level-icon">🥈</div>
+                            <div class="level-name">Silver</div>
+                            <div class="level-price">฿299/เดือน</div>
+                        </label>
+                        <label class="level-option level-gold">
+                            <input type="radio" name="level" value="Gold">
+                            <div class="level-icon">🥇</div>
+                            <div class="level-name">Gold</div>
+                            <div class="level-price">฿599/เดือน</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">รหัสผ่าน *</label>
+                    <input type="password" id="password" class="form-input" placeholder="อย่างน้อย 6 ตัวอักษร" required
+                        minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ยืนยันรหัสผ่าน *</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="กรอกรหัสผ่านอีกครั้ง"
+                        required>
+                </div>
+
+                <div id="registerError" class="alert alert-error" style="display: none;"></div>
+
+                <button type="submit" class="btn btn-nvidia btn-lg w-full"
+                    style="display: flex; margin-top: var(--space-6);">
+                    สมัครสมาชิก
+                </button>
+            </form>
+
+            <p class="text-center text-gray text-sm mt-6">
+                มีบัญชีอยู่แล้ว? <a href="admin.html">เข้าสู่ระบบ</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div style="font-size: 4rem; margin-bottom: var(--space-6);">🎉</div>
+            <h2 style="color: var(--color-nvidia-green);">สมัครสำเร็จ!</h2>
+            <p class="text-gray">ยินดีต้อนรับสู่ NVIDIA Store</p>
+            <p id="memberLevel" style="font-size: var(--font-size-xl); margin: var(--space-4) 0;"></p>
+            <a href="index.html" class="btn btn-primary btn-lg mt-6">เริ่มช้อปปิ้ง</a>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+        /* หมายเหตุ: สร้างเพื่อการศึกษาเท่านั้น */
+
+        // Level selection UI
+        document.querySelectorAll('.level-option').forEach(option => {
+            option.addEventListener('click', function () {
+                document.querySelectorAll('.level-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Registration Form
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const fullname = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const level = document.querySelector('input[name="level"]:checked').value;
+
+            const errorEl = document.getElementById('registerError');
+
+            // Validation
+            if (!fullname || !email || !phone || !password) {
+                errorEl.textContent = 'กรุณากรอกข้อมูลให้ครบถ้วน';
+                errorEl.style.display = 'flex';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorEl.textContent = 'รหัสผ่านไม่ตรงกัน';
+                errorEl.style.display = 'flex';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorEl.textContent = 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
+                errorEl.style.display = 'flex';
+                return;
+            }
+
+            // Create member data
+            const memberData = {
+                id: Date.now(),
+                fullname: fullname,
+                email: email,
+                phone: phone,
+                level: level,
+                date: new Date().toLocaleDateString('th-TH'),
+                timestamp: new Date().toISOString()
+            };
+
+            // Save to LocalStorage
+            let members = JSON.parse(localStorage.getItem('nvidia_members') || '[]');
+            members.push(memberData);
+            localStorage.setItem('nvidia_members', JSON.stringify(members));
+
+            // Show success
+            document.getElementById('memberLevel').innerHTML = `ระดับ: <span style="color: var(--color-nvidia-green);">${level}</span>`;
+            document.getElementById('successModal').classList.add('active');
+
+            // Reset form
+            this.reset();
+            document.querySelectorAll('.level-option').forEach(o => o.classList.remove('selected'));
+            document.querySelector('.level-option').classList.add('selected');
+        });
+    </script>
+</body>
+
+</html>
