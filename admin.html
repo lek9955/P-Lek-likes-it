@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Panel - NVIDIA Store">
+    <title>Admin - NVIDIA Store</title>
+
+    <!-- 
+    ============================================
+    หมายเหตุ: สร้างเพื่อการศึกษาเท่านั้น
+    Note: Created for educational purposes only
+    ============================================
+    -->
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        .admin-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(230, 32, 32, 0.1) 0%, transparent 50%);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--color-black-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-6);
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .admin-panel {
+            display: none;
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-card {
+            background: var(--color-black-light);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .stat-value {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .stat-label {
+            color: var(--color-gray-400);
+            font-size: var(--font-size-sm);
+        }
+
+        .admin-table {
+            background: var(--color-black-light);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-table table {
+            width: 100%;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: var(--space-4) var(--space-5);
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-table th {
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-gray-300);
+        }
+
+        .admin-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-badge {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--color-warning);
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--color-success);
+        }
+
+        .status-cancelled {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--color-error);
+        }
+
+        .admin-welcome {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: rgba(118, 185, 0, 0.1);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+        }
+
+        @media (max-width: 1024px) {
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 580px) {
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Section -->
+    <section class="admin-login" id="loginSection">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">🔐</div>
+                <h2>Admin Login</h2>
+                <p class="text-gray">เข้าสู่ระบบจัดการร้านค้า</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">ชื่อผู้ใช้</label>
+                    <input type="text" id="username" class="form-input" placeholder="กรอกชื่อผู้ใช้">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">รหัสผ่าน</label>
+                    <input type="password" id="password" class="form-input" placeholder="กรอกรหัสผ่าน">
+                </div>
+                <div id="loginError" class="alert alert-error" style="display: none;">
+                    ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-full"
+                    style="display: flex; margin-top: var(--space-6);">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+
+            <p class="text-center text-gray text-sm mt-8">
+                <a href="index.html">← กลับหน้าเว็บไซต์</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section class="admin-panel" id="adminPanel">
+        <div id="header-placeholder"></div>
+
+        <div class="container" style="padding-top: var(--space-8);">
+            <div class="admin-welcome">
+                <span style="font-size: 2rem;">👤</span>
+                <div>
+                    <h4 class="m-0">ยินดีต้อนรับ, <span id="adminName">Admin</span></h4>
+                    <p class="text-gray text-sm m-0">ระบบจัดการร้านค้า NVIDIA Store</p>
+                </div>
+                <button class="btn btn-ghost" onclick="logout()" style="margin-left: auto;">ออกจากระบบ</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(230,32,32,0.2);">📦</div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">คำสั่งซื้อทั้งหมด</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(118,185,0,0.2);">💰</div>
+                    <div class="stat-value">฿2.5M</div>
+                    <div class="stat-label">ยอดขายรวม</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(59,130,246,0.2);">👥</div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">ลูกค้า</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(245,158,11,0.2);">🛍️</div>
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">สินค้าในระบบ</div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="admin-table">
+                <div class="admin-table-header">
+                    <h3 class="m-0">คำสั่งซื้อล่าสุด</h3>
+                    <button class="btn btn-sm btn-secondary">ดูทั้งหมด</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>หมายเลข</th>
+                            <th>ลูกค้า</th>
+                            <th>สินค้า</th>
+                            <th>ราคา</th>
+                            <th>สถานะ</th>
+                            <th>วันที่</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NV12345678</td>
+                            <td>สมชาย ใจดี</td>
+                            <td>GeForce RTX 4090</td>
+                            <td>฿59,990</td>
+                            <td><span class="status-badge status-completed">จัดส่งแล้ว</span></td>
+                            <td>30/01/2026</td>
+                        </tr>
+                        <tr>
+                            <td>NV12345677</td>
+                            <td>สมหญิง รักเกม</td>
+                            <td>GeForce RTX 4080 SUPER</td>
+                            <td>฿42,990</td>
+                            <td><span class="status-badge status-pending">รอจัดส่ง</span></td>
+                            <td>29/01/2026</td>
+                        </tr>
+                        <tr>
+                            <td>NV12345676</td>
+                            <td>เกมเมอร์ โปร</td>
+                            <td>Gaming Keyboard + Mouse</td>
+                            <td>฿6,480</td>
+                            <td><span class="status-badge status-completed">จัดส่งแล้ว</span></td>
+                            <td>28/01/2026</td>
+                        </tr>
+                        <tr>
+                            <td>NV12345675</td>
+                            <td>นักพัฒนา AI</td>
+                            <td>NVIDIA Jetson Orin Nano</td>
+                            <td>฿7,490</td>
+                            <td><span class="status-badge status-cancelled">ยกเลิก</span></td>
+                            <td>27/01/2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-center text-gray text-sm mt-8">
+                หมายเหตุ: สร้างเพื่อการศึกษาเท่านั้น
+            </p>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        /* 
+         * ============================================
+         * หมายเหตุ: สร้างเพื่อการศึกษาเท่านั้น
+         * Note: Created for educational purposes only
+         * ============================================
+         * Admin Credentials:
+         * Username: Lek999555
+         * Password: 995599
+         */
+
+        const ADMIN_USER = 'Lek999555';
+        const ADMIN_PASS = '995599';
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', function () {
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                showAdminPanel();
+            }
+        });
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_USER && password === ADMIN_PASS) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminName', ADMIN_USER);
+                showAdminPanel();
+            } else {
+                document.getElementById('loginError').style.display = 'flex';
+            }
+        });
+
+        function showAdminPanel() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminName').textContent = sessionStorage.getItem('adminName') || ADMIN_USER;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminName');
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
