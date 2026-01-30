@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ค้นหาสินค้า NVIDIA - กราฟิกการ์ด อุปกรณ์เกมมิ่ง">
+    <title>ค้นหาสินค้า - NVIDIA Store</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-header">
+                <h1>ค้นหาสินค้า</h1>
+                <div class="search-bar search-bar-lg">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        class="search-bar-icon">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="ค้นหา RTX 4090, Keyboard, Mouse...">
+                </div>
+            </div>
+
+            <div class="search-filters">
+                <button class="filter-btn active" data-category="all">ทั้งหมด</button>
+                <button class="filter-btn" data-category="Graphics Card">กราฟิกการ์ด</button>
+                <button class="filter-btn" data-category="Monitor">จอมอนิเตอร์</button>
+                <button class="filter-btn" data-category="Peripherals">อุปกรณ์เสริม</button>
+            </div>
+
+            <p class="text-gray mb-6" id="resultsCount">พบ 10 รายการ</p>
+
+            <div class="products-grid" id="searchResults">
+                <!-- Search results loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize search results
+        document.addEventListener('DOMContentLoaded', function () {
+            renderProducts(PRODUCTS, 'searchResults');
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const query = e.target.value.toLowerCase();
+            const results = PRODUCTS.filter(p =>
+                p.name.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+            renderProducts(results, 'searchResults');
+            document.getElementById('resultsCount').textContent = `พบ ${results.length} รายการ`;
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+                const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+                let results = category === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === category);
+
+                if (searchQuery) {
+                    results = results.filter(p =>
+                        p.name.toLowerCase().includes(searchQuery) ||
+                        p.category.toLowerCase().includes(searchQuery)
+                    );
+                }
+
+                renderProducts(results, 'searchResults');
+                document.getElementById('resultsCount').textContent = `พบ ${results.length} รายการ`;
+            });
+        });
+    </script>
+</body>
+
+</html>

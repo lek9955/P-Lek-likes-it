@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ตะกร้าสินค้า - NVIDIA Store">
+    <title>ตะกร้าสินค้า - NVIDIA Store</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <section class="cart-section">
+        <div class="container">
+            <h1 class="section-title mb-8">ตะกร้าสินค้า</h1>
+
+            <div class="cart-grid">
+                <!-- Cart Items -->
+                <div id="cartItems">
+                    <!-- Cart items loaded by JS -->
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary" id="cartSummary">
+                    <h3 class="mb-6">สรุปคำสั่งซื้อ</h3>
+
+                    <div class="cart-summary-row">
+                        <span class="text-gray">ราคาสินค้า</span>
+                        <span id="subtotal">฿0</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span class="text-gray">ค่าจัดส่ง</span>
+                        <span id="shipping">฿150</span>
+                    </div>
+                    <div class="cart-summary-row" style="border-bottom: none;">
+                        <span class="font-semibold">รวมทั้งหมด</span>
+                        <span class="cart-summary-total" id="total">฿0</span>
+                    </div>
+
+                    <p class="text-sm text-gray mt-4 mb-6">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24" style="display: inline; vertical-align: middle;">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 16v-4M12 8h.01" />
+                        </svg>
+                        สั่งซื้อ 5,000 บาทขึ้นไป จัดส่งฟรี!
+                    </p>
+
+                    <a href="checkout.html" class="btn btn-primary btn-lg w-full" style="display: flex;">
+                        ดำเนินการชำระเงิน
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+
+                    <a href="products.html" class="btn btn-ghost w-full mt-4" style="display: flex;">
+                        เลือกซื้อสินค้าต่อ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

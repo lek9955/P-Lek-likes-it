@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="สินค้า NVIDIA ทั้งหมด - กราฟิกการ์ด อุปกรณ์เกมมิ่ง และอื่นๆ">
+    <title>สินค้าทั้งหมด - NVIDIA Store</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <section class="products-section" style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">สินค้าทั้งหมด</h1>
+                    <p class="text-gray m-0">เลือกซื้อสินค้า NVIDIA และอุปกรณ์เกมมิ่งคุณภาพสูง</p>
+                </div>
+            </div>
+
+            <div class="search-filters mb-8">
+                <button class="filter-btn active" data-category="all">ทั้งหมด</button>
+                <button class="filter-btn" data-category="Graphics Card">กราฟิกการ์ด</button>
+                <button class="filter-btn" data-category="Monitor">จอมอนิเตอร์</button>
+                <button class="filter-btn" data-category="Peripherals">อุปกรณ์เสริม</button>
+                <button class="filter-btn" data-category="Streaming">สตรีมมิ่ง</button>
+                <button class="filter-btn" data-category="AI & Robotics">AI & Robotics</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+                const filtered = category === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === category);
+                renderProducts(filtered);
+            });
+        });
+    </script>
+</body>
+
+</html>

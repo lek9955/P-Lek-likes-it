@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="NVIDIA Store Thailand - ร้านขายกราฟิกการ์ด อุปกรณ์เกมมิ่ง และสินค้า NVIDIA คุณภาพสูง">
+    <title>NVIDIA Store - หน้าแรก</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    NVIDIA GeForce RTX 40 Series
+                </span>
+                <h1>พลังแห่งการ<br><span>เล่นเกม</span> ระดับโลก</h1>
+                <p>สัมผัสประสบการณ์เกมมิ่งที่เหนือกว่าด้วยเทคโนโลยี Ray Tracing และ DLSS 3 จาก NVIDIA</p>
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-primary btn-lg">เลือกซื้อเลย</a>
+                    <a href="search.html" class="btn btn-secondary btn-lg">ค้นหาสินค้า</a>
+                </div>
+            </div>
+        </div>
+        <img src="images/products/rtx4090.png" alt="RTX 4090" class="hero-image" onerror="this.style.display='none'">
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">สินค้าแนะนำ</h2>
+                <a href="products.html" class="btn btn-secondary">ดูทั้งหมด</a>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Products loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" style="background: var(--color-black-light);">
+        <div class="container">
+            <h2 class="section-title text-center mb-8">หมวดหมู่สินค้า</h2>
+            <div class="grid grid-cols-4 gap-6">
+                <a href="products.html" class="card text-center" style="padding: var(--space-8);">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-4);">🎮</div>
+                    <h4>กราฟิกการ์ด</h4>
+                    <p class="text-gray text-sm m-0">RTX 40 Series</p>
+                </a>
+                <a href="products.html" class="card text-center" style="padding: var(--space-8);">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-4);">🖥️</div>
+                    <h4>จอมอนิเตอร์</h4>
+                    <p class="text-gray text-sm m-0">4K Gaming</p>
+                </a>
+                <a href="products.html" class="card text-center" style="padding: var(--space-8);">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-4);">⌨️</div>
+                    <h4>อุปกรณ์เกมมิ่ง</h4>
+                    <p class="text-gray text-sm m-0">Keyboard & Mouse</p>
+                </a>
+                <a href="products.html" class="card text-center" style="padding: var(--space-8);">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-4);">🤖</div>
+                    <h4>AI & Robotics</h4>
+                    <p class="text-gray text-sm m-0">Jetson Series</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="badge badge-green mb-4"
+                        style="width: 60px; height: 60px; border-radius: 50%; display: inline-flex; font-size: 1.5rem;">
+                        🚚</div>
+                    <h4>จัดส่งฟรี</h4>
+                    <p class="text-gray text-sm m-0">สั่งซื้อ 5,000 บาทขึ้นไป</p>
+                </div>
+                <div class="text-center">
+                    <div class="badge badge-red mb-4"
+                        style="width: 60px; height: 60px; border-radius: 50%; display: inline-flex; font-size: 1.5rem;">
+                        🛡️</div>
+                    <h4>รับประกัน 3 ปี</h4>
+                    <p class="text-gray text-sm m-0">สินค้าทุกชิ้น</p>
+                </div>
+                <div class="text-center">
+                    <div class="badge badge-green mb-4"
+                        style="width: 60px; height: 60px; border-radius: 50%; display: inline-flex; font-size: 1.5rem;">
+                        💳</div>
+                    <h4>ชำระง่าย</h4>
+                    <p class="text-gray text-sm m-0">หลายช่องทาง</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

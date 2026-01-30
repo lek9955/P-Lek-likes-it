@@ -1,0 +1,286 @@
+/* ============================================
+   NVIDIA Store - Components
+   ============================================ */
+
+/* === Buttons === */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow-red);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--color-white);
+    border-color: var(--color-red);
+}
+
+.btn-secondary:hover {
+    background: var(--color-red);
+}
+
+.btn-nvidia {
+    background: var(--gradient-nvidia);
+    color: var(--color-black);
+}
+
+.btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+}
+
+/* === Cards === */
+.card {
+    background: var(--color-black-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-normal);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-red);
+}
+
+.card-body {
+    padding: var(--space-6);
+}
+
+.card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+}
+
+.card-price {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-red);
+}
+
+/* === Product Card === */
+.product-card {
+    position: relative;
+    background: var(--color-black-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-red);
+    box-shadow: 0 20px 40px rgba(230, 32, 32, 0.2);
+}
+
+.product-card-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: var(--color-black-lighter);
+    padding: var(--space-4);
+}
+
+.product-card-body {
+    padding: var(--space-5);
+}
+
+.product-card-category {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    color: var(--color-nvidia-green);
+    margin-bottom: var(--space-2);
+}
+
+.product-card-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+}
+
+.product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-card-price {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-red);
+}
+
+.product-card-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    color: var(--color-white);
+    transition: all var(--transition-fast);
+}
+
+.product-card-btn:hover {
+    transform: scale(1.1);
+}
+
+/* === Badge === */
+.badge {
+    display: inline-flex;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+}
+
+.badge-red {
+    background: var(--color-red);
+    color: var(--color-white);
+}
+
+.badge-green {
+    background: var(--color-nvidia-green);
+    color: var(--color-black);
+}
+
+/* === Forms === */
+.form-group {
+    margin-bottom: var(--space-5);
+}
+
+.form-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-300);
+    margin-bottom: var(--space-2);
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    color: var(--color-white);
+    background: var(--color-black-lighter);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-red);
+}
+
+/* === Search Bar === */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    max-width: 600px;
+    padding: var(--space-3) var(--space-5);
+    background: var(--color-black-lighter);
+    border: 2px solid transparent;
+    border-radius: var(--radius-full);
+}
+
+.search-bar:focus-within {
+    border-color: var(--color-red);
+}
+
+.search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+/* === Quantity Selector === */
+.qty-selector {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-black-lighter);
+    border-radius: var(--radius-lg);
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+}
+
+.qty-btn:hover {
+    background: var(--color-red);
+}
+
+.qty-value {
+    width: 50px;
+    text-align: center;
+    font-weight: var(--font-weight-semibold);
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+}
+
+/* === Alert === */
+.alert {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+}
+
+.alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid var(--color-success);
+    color: var(--color-success);
+}
+
+.alert-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--color-error);
+    color: var(--color-error);
+}
+
+/* === Divider === */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    margin: var(--space-8) 0;
+}
